@@ -1,0 +1,18 @@
+Version 3.0
+* New menu and easy navigation between the services. 
+* Access to the same functionality that you have in your browser version of the portal.
+
+Version 2.0.7
+* Stability improvements
+
+Version 2.0.6
+* Various bugfixes
+
+Version 2.0.4
+* Back button will no longer navigate to login screen
+
+Version 2.0.3
+* Fix for closed web
+
+Version 2.0
+* Completely redesigned app

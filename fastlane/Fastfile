@@ -1,0 +1,109 @@
+opt_out_usage
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+fastlane_version '2.141.0'
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test", build_type: 'Release', project_dir: 'android/')
+  end
+
+  desc 'Build the Android application.'
+  lane :build do
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'assemble', build_type: 'Release', project_dir: 'android/')
+  end
+
+  desc "Deploy a new test version to the Google Play"
+  lane :deploy_staging do
+    # increment_version_code
+    gradle(task: 'clean', project_dir: 'android/')
+    gradle(task: 'assemble', build_type: 'Release',  project_dir: 'android/',
+    print_command: false,
+    properties:{
+      "android.injected.signing.store.file" => "keystore.jks",
+      "android.injected.signing.store.password" => ENV['KEYSTORE_STORE_PASSWORD'],
+      "android.injected.signing.key.alias" => 'retriever',
+      "android.injected.signing.key.password" => ENV['KEYSTORE_KEY_PASSWORD'],
+    })
+    upload_to_play_store(track:'internal',json_key: './google-auth.json')
+  end
+
+end
+
+
+platform :ios do
+
+  desc 'Run tests'
+  lane :test do
+    cocoapods(podfile: "./ios/Podfile")
+    run_tests(scheme: 'nativeRetrieverInfoCom', workspace: './ios/nativeRetrieverInfoCom.xcworkspace')
+  end
+
+  desc 'Fetch certificates and provisioning profiles'
+  lane :certificates do
+    match(app_identifier: 'no.retriever.retpush', type: 'development',  readonly: is_ci)
+    match(app_identifier: 'no.retriever.retpush', type: 'appstore',  readonly: is_ci)
+  end
+
+  desc 'Build app'
+  lane :build do
+    cocoapods(podfile: "./ios/Podfile")
+    sync_code_signing
+    certificates
+    get_provisioning_profile(app_identifier: "no.retriever.retpush",  readonly: is_ci)
+    build_app(scheme: "nativeRetrieverInfoCom",clean: true, export_options: {
+      method: "app-store",
+      signingStyle: "automatic"
+      }, workspace: './ios/nativeRetrieverInfoCom.xcworkspace', export_xcargs: "-allowProvisioningUpdates")
+  end
+
+  desc 'Deploy to Test Flight'
+  lane :deploy_staging do
+    cocoapods(podfile: "./ios/Podfile")
+    increment_build_number(
+    build_number: latest_testflight_build_number + 1,
+    xcodeproj: "./ios/nativeRetrieverInfoCom.xcodeproj"
+    )
+    sync_code_signing(type: "appstore")  # see code signing guide for more information
+    build_app(scheme: "nativeRetrieverInfoCom",clean: true, export_options: {
+      method: "app-store",
+      signingStyle: "automatic"
+      }, workspace: './ios/nativeRetrieverInfoCom.xcworkspace', export_xcargs: "-allowProvisioningUpdates")
+      upload_to_testflight
+  end
+
+
+  desc 'Deploy to Apple App Store'
+  lane :deploy_production do
+    cocoapods(podfile: "./ios/Podfile")
+    increment_build_number(
+    build_number: latest_testflight_build_number + 1,
+    xcodeproj: "./ios/nativeRetrieverInfoCom.xcodeproj"
+    )
+    sync_code_signing(type: "appstore")  # see code signing guide for more information
+    build_app(scheme: "nativeRetrieverInfoCom",clean: true, export_options: {
+      method: "app-store",
+      signingStyle: "automatic"
+      }, workspace: './ios/nativeRetrieverInfoCom.xcworkspace', export_xcargs: "-allowProvisioningUpdates")
+      upload_to_app_store(submit_for_review: true,
+      automatic_release: false,
+      skip_screenshots: true,
+      force: true)
+  end
+
+end

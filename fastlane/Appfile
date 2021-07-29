@@ -1,0 +1,17 @@
+json_key_file("./google-auth.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+app_identifier "com.retriever.android" # The bundle identifier of your app
+package_name("com.retriever.android") # e.g. com.krausefx.app
+
+for_platform :android do
+    package_name("com.retriever.android") # e.g. com.krausefx.app
+    app_identifier "com.retriever.android" # The bundle identifier of your app
+    apple_id "nick@kristoffersen.io"
+    team_id "QL2G2NS2KQ" 
+end
+
+for_platform :ios do
+    package_name("com.retriever-info.native") # e.g. com.krausefx.app
+    app_identifier "no.retriever.retpush" # The bundle identifier of your app
+    apple_id "nick@kristoffersen.io"
+    itc_team_id "542021" 
+end

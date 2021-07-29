@@ -1,0 +1,9 @@
+export const EN = 'en';
+export const EN_US = 'en-US';
+export const EN_AU = 'en-au';
+export const EN_GB = 'en-gb';
+export const NB = 'nb';
+export const DA = 'da';
+export const SE = 'se';
+export const FI = 'fi';
+export const NN = 'nn';

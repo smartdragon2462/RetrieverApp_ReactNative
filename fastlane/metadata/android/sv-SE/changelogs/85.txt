@@ -1,0 +1,21 @@
+Versjon 3.0.4
+* Fix för nedlasting av filer
+
+Versjon 3.0.2
+* Olika buggfixar
+
+Versjon 3.0
+* Ny meny med överskådlig navigation över tjänsterna.
+* Tillgång till alla de samma funktionerna som finns i webbläsaren.
+
+Versjon 2.0.6
+* Olika buggfixar
+
+Versjon 2.0.4
+* Tilbakeknappen vil ikke navigere til loginnskjermen
+
+Versjon 2.0.3
+* Lagt til stöd for lukkad web
+
+Versjon 2.0
+* Redesignet app

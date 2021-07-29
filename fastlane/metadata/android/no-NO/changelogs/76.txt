@@ -1,0 +1,18 @@
+Versjon 3.0
+* Ny meny med oversiktlig navigasjon mellom tjenestene.
+* Tilgang til all den samme funksjonaliteten som i nettleser.
+
+Versjon 2.0.7
+* Forbedret stabilitet
+
+Versjon 2.0.6
+* Diverse bugfikser
+
+Versjon 2.0.4
+* Tilbakeknappen vil ikke navigere til loginnskjermen
+
+Versjon 2.0.3
+* Lagt til støtte for lukket web
+
+Versjon 2.0
+* Redesignet appen fullstendig

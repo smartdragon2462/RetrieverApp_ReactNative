@@ -1,0 +1,14 @@
+export const ARTICLE_CLEAR = 'ARTICLE_CLEAR';
+export const ARTICLE_SET_VIEW_OPTION = 'ARTICLE_SET_VIEW_OPTION';
+export const FETCH_ARTICLE_REQUEST = 'FETCH_ARTICLE_REQUEST';
+export const FETCH_ARTICLE_SUCCESS = 'FETCH_ARTICLE_SUCCESS';
+export const FETCH_ARTICLE_FAILURE = 'FETCH_ARTICLE_FAILURE';
+export const FRAMED_VIEW = 'FRAMED_VIEW';
+export const FULLTEXT = 'FULLTEXT';
+export const PDF_VIEW = 'PDF_VIEW';
+export const PRINT = 'print';
+
+export const GOTO_PAGE = 'GOTO_PAGE';
+
+export const SAVE_ARTICLE = 'SAVE_ARTICLE';
+export const REMOVE_ARTICLE = 'REMOVE_ARTICLE';
